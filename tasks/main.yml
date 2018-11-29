@@ -17,6 +17,7 @@
     cron:
       hour: 6
       user: reicom
+      backup: true
       job: "find /home/reicom/ -type f -maxdepth 1 -name \"core.*\" -mtime +{{ storico_core }} -delete >> /var/log/ct6/delete_core_stacktrace.log 2>&1"
       cron_file: delete_cron_stacktrace
       name: delete_cron
@@ -25,6 +26,7 @@
     cron:
       hour: 6
       user: reicom
+      backup: true
       job: "find /home/reicom/ -type f -maxdepth 1 -name \"stacktrace.*\" -mtime +{{ storico_stacktrace }} -delete >> /var/log/ct6/delete_core_stacktrace.log 2>&1"
       cron_file: delete_cron_stacktrace
       name: delete_stacktrace

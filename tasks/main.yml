@@ -15,19 +15,19 @@
 - block:  
   - name: Installo il cron per i core
     cron:
-    hour: 6
-    user: reicom
-    job: "find /home/reicom/ -type f -maxdepth 1 -name core.* -mtime +{{ storico_core }} -delete >> /var/log/ct6/delete_core_stacktrace.log 2>&1"
-    cron_file: delete_cron_stacktrace
-    name: delete_cron
+      hour: 6
+      user: reicom
+      job: "find /home/reicom/ -type f -maxdepth 1 -name core.* -mtime +{{ storico_core }} -delete >> /var/log/ct6/delete_core_stacktrace.log 2>&1"
+      cron_file: delete_cron_stacktrace
+      name: delete_cron
     
   - name: Installo il cron per gli stacktrace
     cron:
-    hour: 6
-    user: reicom
-    job: "find /home/reicom/ -type f -maxdepth 1 -name stacktrace.* -mtime +{{ storico_stacktrace }} -delete >> /var/log/ct6/delete_core_stacktrace.log 2>&1"
-    cron_file: delete_cron_stacktrace
-    name: delete_stacktrace
+      hour: 6
+      user: reicom
+      job: "find /home/reicom/ -type f -maxdepth 1 -name stacktrace.* -mtime +{{ storico_stacktrace }} -delete >> /var/log/ct6/delete_core_stacktrace.log 2>&1"
+      cron_file: delete_cron_stacktrace
+      name: delete_stacktrace
   
   - name: Posiziono il file per il logrotate  
     copy:

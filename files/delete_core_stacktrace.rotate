@@ -1,0 +1,10 @@
+/var/log/ct6/delete_core_stacktrace.log
+{
+  size 1M
+  rotate 3
+  missingok
+  notifempty
+  nodateext
+  compress
+  create 777 reicom contact
+}

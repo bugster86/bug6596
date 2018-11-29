@@ -1,2 +1,4 @@
 ---
 # defaults file for 6596
+storico_core: 3
+storico_stacktrace: 3

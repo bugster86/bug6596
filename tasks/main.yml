@@ -7,3 +7,35 @@
   shell: mysql --user=ansible_update --password=$(cat /home/password_insert) -e "insert into ansible.bugs values ( '{{bug}}','$USER','$(date +%d-%m-%Y_%H:%M:%S)','{{inventory_hostname}}');"
   delegate_to: localhost
   changed_when: false
+  
+- name: verifico la presenza della cartella /home/reicom
+  stat: path=/home/reicom
+  register: cartella_reicom_6596
+  
+- block:  
+  - name: Installo il cron per i core
+    cron:
+    hour: 6
+    user: reicom
+    job: "find /home/reicom/ -type f -maxdepth 1 -name core.* -mtime +{{ storico_core }} -delete >> /var/log/ct6/delete_core_stacktrace.log 2>&1"
+    cron_file: delete_cron_stacktrace
+    name: delete_cron
+    
+  - name: Installo il cron per gli stacktrace
+    cron:
+    hour: 6
+    user: reicom
+    job: "find /home/reicom/ -type f -maxdepth 1 -name stacktrace.* -mtime +{{ storico_stacktrace }} -delete >> /var/log/ct6/delete_core_stacktrace.log 2>&1"
+    cron_file: delete_cron_stacktrace
+    name: delete_stacktrace
+  
+  - name: Posiziono il file per il logrotate  
+    copy:
+      backup: true
+      src: files/delete_core_stacktrace.rotate
+      dest: /etc/logrotate.d
+      owner: root
+      group: root
+      mode: 0644
+     
+  when: cartella_reicom_6596.stat.exists

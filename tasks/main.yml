@@ -40,4 +40,7 @@
       group: root
       mode: 0644
      
-  when: cartella_reicom_6596.stat.exists
+  when: 
+  - cartella_reicom_6596.stat.exists
+  - storico_core|int(-1) != -1
+  - storico_stacktrace|int(-1) != -1
